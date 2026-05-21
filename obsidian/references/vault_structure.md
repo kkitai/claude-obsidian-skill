@@ -11,9 +11,9 @@ Replace `<project-name>` and `<project-path>` with the actual values.
 {
   "env": {
     "VAULT_ROOT": "~/Documents/Obsidian/<project-name>",
-    "DAILY_FOLDER": "01_Projects/<project-name>/daily",
+    "DAILY_FOLDER": "01_Plan/daily",
     "INBOX_FOLDER": "00_Inbox",
-    "PROJECT_FOLDER": "01_Projects/<project-name>",
+    "PROJECT_FOLDER": "01_Plan",
     "TEMPLATE_FOLDER": "Templates",
     "ARCHIVE_FOLDER": "04_Archive",
     "TIMEZONE": "Asia/Tokyo",
@@ -33,10 +33,10 @@ Run a daily review for $ARGUMENTS (or today's date if not specified).
 
 Steps:
 1. Check 00_Inbox/ for any unprocessed notes
-2. Review in-progress tasks under 01_Projects/<project-name>/
+2. Review in-progress tasks under 01_Plan/
 3. Create or update the daily note in the following format:
 
-File path: 01_Projects/<project-name>/daily/YYYY-MM-DD.md
+File path: 01_Plan/daily/YYYY-MM-DD.md
 
 ## Daily Log: YYYY-MM-DD
 
@@ -64,7 +64,7 @@ Steps:
 1. List all files in 00_Inbox/
 2. Read the content of each file
 3. Suggest a destination for each file based on these criteria:
-   - Project-related → 01_Projects/<project-name>/
+   - Plans, decisions, logs → 01_Plan/docs/
    - Ongoing theme → 02_Areas/
    - Reference / research → 03_Resources/
    - Old or no longer needed → 04_Archive/
@@ -112,7 +112,7 @@ Create a structured log from the following meeting notes.
 
 Load $ARGUMENTS (or the most recent file in 00_Inbox/) and organize it in this format:
 
-Save to: 01_Projects/<project-name>/meetings/YYYY-MM-DD_<meeting-name>.md
+Save to: 01_Plan/meetings/YYYY-MM-DD_<meeting-name>.md
 
 ## Meeting log: <meeting-name>
 
@@ -153,10 +153,10 @@ Always follow these rules when creating or moving files.
 - Rule: notes here are temporary — triage regularly with /inbox-review
 - File names: free-form (date prefix recommended: YYYYMMDD_title.md)
 
-### 01_Projects/
-- Purpose: notes for active projects
-- Structure: organize under 01_Projects/<project-name>/ with subfolders
-- Subfolder examples: daily/, meetings/, tasks/, docs/
+### 01_Plan/
+- Purpose: plans, decisions, daily logs, and meeting notes for this project
+- Structure: files go directly under subfolders (daily/, meetings/, docs/)
+- Subfolder examples: daily/, meetings/, docs/
 
 ### 02_Areas/
 - Purpose: ongoing areas of interest that are continuously maintained
@@ -206,7 +206,7 @@ This vault was created for knowledge management and Claude Code integration for 
 
 ## Folder structure
 - `00_Inbox/` — temporary drop zone for unprocessed notes
-- `01_Projects/` — per-project notes
+- `01_Plan/` — plans, decisions, daily logs, meeting notes
 - `02_Areas/` — ongoing areas of interest
 - `03_Resources/` — reference material & research
 - `04_Archive/` — archive
@@ -240,13 +240,13 @@ This file is created at `<project-path>/CLAUDE.md`. It gives Claude persistent a
 This project is linked to an Obsidian vault at: <vault-path>
 
 ### When to reference the vault
-- Before starting work on a feature or investigation, check `<vault-path>/01_Projects/<project-name>/` for relevant notes and prior decisions.
+- Before starting work on a feature or investigation, check `<vault-path>/01_Plan/` for relevant notes and prior decisions.
 - When the user asks about something that may have been researched before, search the vault first.
-- For architectural or design questions, look for existing notes in `<vault-path>/01_Projects/<project-name>/docs/`.
+- For architectural or design questions, look for existing notes in `<vault-path>/01_Plan/docs/`.
 
 ### When to suggest updating the vault
-- **End of a work session**: suggest appending a summary to the daily log at `<vault-path>/01_Projects/<project-name>/daily/YYYY-MM-DD.md`.
-- **After a decision is made**: offer to save the decision and its rationale as a note in `<vault-path>/01_Projects/<project-name>/docs/`.
+- **End of a work session**: suggest appending a summary to the daily log at `<vault-path>/01_Plan/daily/YYYY-MM-DD.md`.
+- **After a decision is made**: offer to save the decision and its rationale as a note in `<vault-path>/01_Plan/docs/`.
 - **After a meeting or discussion**: suggest running `/mtg` in the vault to create a structured meeting log.
 - **When new reference material is found**: suggest saving a summary to `<vault-path>/03_Resources/`.
 

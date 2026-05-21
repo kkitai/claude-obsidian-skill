@@ -53,8 +53,10 @@ The following Obsidian integration will be set up:
   │   └── rules/
   │       └── folder-structure.md  # Folder structure rules
   ├── 00_Inbox/                 # Temporary drop zone for unprocessed notes
-  ├── 01_Projects/              # Per-project notes
-  │   └── <project-name>/
+  ├── 01_Plan/                  # Plans, decisions, daily logs, meeting notes
+  │   ├── daily/
+  │   ├── meetings/
+  │   └── docs/
   ├── 02_Areas/                 # Ongoing areas of interest
   ├── 03_Resources/             # Reference material & research
   ├── 04_Archive/               # Archive
@@ -81,7 +83,9 @@ Once the user approves, create the following:
 mkdir -p <vault-path>/.claude/commands
 mkdir -p <vault-path>/.claude/rules
 mkdir -p "<vault-path>/00_Inbox"
-mkdir -p "<vault-path>/01_Projects/<project-name>"
+mkdir -p "<vault-path>/01_Plan/daily"
+mkdir -p "<vault-path>/01_Plan/meetings"
+mkdir -p "<vault-path>/01_Plan/docs"
 mkdir -p "<vault-path>/02_Areas"
 mkdir -p "<vault-path>/03_Resources"
 mkdir -p "<vault-path>/04_Archive"
