@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "kkitai-claude-obsidian-template",
+  "description": "Claude Code plugin for integrating with Obsidian vaults",
+  "owner": {
+    "name": "kkitai"
+  },
+  "plugins": [
+    {
+      "name": "obsidian",
+      "description": "Sets up an Obsidian vault linked to a development project, with Claude Code integration and PARA-method folder structure.",
+      "author": {
+        "name": "kkitai"
+      },
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/kkitai/claude-obsidian-template.git",
+        "path": "obsidian",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/kkitai/claude-obsidian-template"
+    }
+  ]
+}
