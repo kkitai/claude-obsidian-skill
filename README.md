@@ -22,12 +22,11 @@ Sets up an Obsidian vault linked to a development project.
 ## Installation
 
 ```bash
-# Add this repo as a marketplace (one-time setup)
-claude plugin marketplace add kkitai/claude-obsidian-template
-
-# Install the plugin
-claude plugin install obsidian
+git clone https://github.com/kkitai/claude-obsidian-template.git
+cp -r claude-obsidian-template/obsidian/skills/obsidian ~/.claude/commands/obsidian
 ```
+
+`/obsidian` is now available globally in any directory.
 
 ## Reference
 

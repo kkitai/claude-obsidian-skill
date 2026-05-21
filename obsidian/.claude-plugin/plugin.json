@@ -1,8 +1,0 @@
-{
-  "name": "obsidian",
-  "version": "1.0.0",
-  "description": "Sets up an Obsidian vault linked to a development project, with Claude Code integration and PARA-method folder structure.",
-  "author": {
-    "name": "kkitai"
-  }
-}
