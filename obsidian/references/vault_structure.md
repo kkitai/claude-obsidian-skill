@@ -10,7 +10,16 @@ Replace `<project-name>` and `<project-path>` with the actual values.
 ```json
 {
   "env": {
-    "TODO_KEY": "TODO_VALUE"
+    "VAULT_ROOT": "~/Documents/Obsidian/<project-name>",
+    "DAILY_FOLDER": "01_Projects/<project-name>/daily",
+    "INBOX_FOLDER": "00_Inbox",
+    "PROJECT_FOLDER": "01_Projects/<project-name>",
+    "TEMPLATE_FOLDER": "Templates",
+    "ARCHIVE_FOLDER": "04_Archive",
+    "TIMEZONE": "Asia/Tokyo",
+    "LOCALE": "en",
+    "DATE_FORMAT": "YYYY-MM-DD",
+    "DATETIME_FORMAT": "YYYY-MM-DD HH:mm"
   }
 }
 ```
