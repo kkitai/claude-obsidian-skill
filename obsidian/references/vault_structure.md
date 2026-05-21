@@ -175,6 +175,15 @@ Always follow these rules when creating or moving files.
 - Purpose: storage for completed or no-longer-needed notes
 - Rule: move here before deleting
 
+### Attachments/
+- Purpose: images, PDFs, and other media files linked in notes
+- Rule: when inserting an image into a note, store the file here
+
+### Templates/
+- Purpose: Obsidian note templates for consistent note structure
+- Examples: meeting template, daily log template, research note template
+- Rule: configure this folder in Obsidian Settings → Templates → Template folder location
+
 ## File naming conventions
 - Spaces → hyphens (-)
 - Dates in YYYY-MM-DD format
@@ -205,6 +214,8 @@ This vault was created for knowledge management and Claude Code integration for 
 - `02_Areas/` — ongoing areas of interest
 - `03_Resources/` — reference material & research
 - `04_Archive/` — archive
+- `Attachments/` — images and media files
+- `Templates/` — Obsidian note templates
 
 ## Claude Code commands
 
@@ -219,4 +230,35 @@ Launch `claude` in this vault folder to use the following commands:
 
 ## Configuration
 Edit `.claude/settings.local.json` to add your personal tech stack and preferences.
+```
+
+---
+
+## CLAUDE.md (placed in the development project directory)
+
+This file is created at `<project-path>/CLAUDE.md`. It gives Claude persistent awareness of the linked Obsidian vault so it can reference and update notes automatically during development work.
+
+```markdown
+## Obsidian Vault Integration
+
+This project is linked to an Obsidian vault at: <vault-path>
+
+### When to reference the vault
+- Before starting work on a feature or investigation, check `<vault-path>/01_Projects/<project-name>/` for relevant notes and prior decisions.
+- When the user asks about something that may have been researched before, search the vault first.
+- For architectural or design questions, look for existing notes in `<vault-path>/01_Projects/<project-name>/docs/`.
+
+### When to suggest updating the vault
+- **End of a work session**: suggest appending a summary to the daily log at `<vault-path>/01_Projects/<project-name>/daily/YYYY-MM-DD.md`.
+- **After a decision is made**: offer to save the decision and its rationale as a note in `<vault-path>/01_Projects/<project-name>/docs/`.
+- **After a meeting or discussion**: suggest running `/mtg` in the vault to create a structured meeting log.
+- **When new reference material is found**: suggest saving a summary to `<vault-path>/03_Resources/`.
+
+### Vault commands (run claude in the vault folder)
+| Command | Description |
+|---------|-------------|
+| `/daily` | Organize today's tasks and log |
+| `/inbox-review` | Suggest triage for unprocessed notes |
+| `/research <keyword>` | Cross-search notes in the vault |
+| `/mtg` | Structure a meeting log |
 ```

@@ -58,7 +58,13 @@ The following Obsidian integration will be set up:
   ├── 02_Areas/                 # Ongoing areas of interest
   ├── 03_Resources/             # Reference material & research
   ├── 04_Archive/               # Archive
+  ├── Attachments/              # Images and media files
+  ├── Templates/                # Obsidian note templates
   └── README.md
+
+  Also created in the project directory:
+  <project-path>/
+  └── CLAUDE.md                 # Rules for referencing the Obsidian vault
 
 Proceed? (yes/no):
 ```
@@ -79,13 +85,15 @@ mkdir -p "<vault-path>/01_Projects/<project-name>"
 mkdir -p "<vault-path>/02_Areas"
 mkdir -p "<vault-path>/03_Resources"
 mkdir -p "<vault-path>/04_Archive"
+mkdir -p "<vault-path>/Attachments"
+mkdir -p "<vault-path>/Templates"
 ```
 
-### Step 4: Create Configuration Files
+### Step 4: Create Vault Configuration Files
 
 Create the files listed below. Refer to `references/vault_structure.md` for the exact template content of each file. Replace `<project-name>` and `<project-path>` with the actual values.
 
-**Files to create:**
+**Files to create in the vault:**
 1. `<vault-path>/.claude/settings.local.json` — tech stack & personal settings
 2. `<vault-path>/.claude/commands/daily.md` — /daily command
 3. `<vault-path>/.claude/commands/inbox-review.md` — /inbox-review command
@@ -94,15 +102,23 @@ Create the files listed below. Refer to `references/vault_structure.md` for the 
 6. `<vault-path>/.claude/rules/folder-structure.md` — folder structure rules
 7. `<vault-path>/README.md` — vault description
 
-### Step 5: Display Completion Message
+### Step 5: Create CLAUDE.md in the Development Project
+
+Create or append to `<project-path>/CLAUDE.md` to give Claude awareness of the linked Obsidian vault. Refer to `references/vault_structure.md` for the `CLAUDE.md` template.
+
+- If `CLAUDE.md` does not exist: create it from the template
+- If `CLAUDE.md` already exists: append the Obsidian integration section to the end of the file (do not overwrite existing content)
+
+### Step 6: Display Completion Message
 
 ```
 ✓ Obsidian Vault setup complete!
 
-  Vault path: <vault-path>
+  Vault path  : <vault-path>
+  CLAUDE.md   : <project-path>/CLAUDE.md (created/updated)
 
 Next steps:
-1. Open this folder as a Vault in Obsidian
+1. Open <vault-path> as a Vault in Obsidian
 2. Fill in your tech stack and personal details in .claude/settings.local.json
 3. Launch claude in the vault folder and try the commands:
    - /daily        → organize today's tasks and log
