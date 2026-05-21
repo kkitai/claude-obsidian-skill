@@ -1,4 +1,4 @@
-# claude-obsidian-template
+# claude-obsidian-skill
 
 A skill repository for integrating Claude Code with Obsidian.
 
