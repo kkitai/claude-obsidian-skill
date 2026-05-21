@@ -22,7 +22,11 @@ Sets up an Obsidian vault linked to a development project.
 ## Installation
 
 ```bash
-claude skills install obsidian/
+# Add this repo as a marketplace (one-time setup)
+claude plugin marketplace add kkitai/claude-obsidian-template
+
+# Install the plugin
+claude plugin install obsidian
 ```
 
 ## Reference
