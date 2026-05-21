@@ -9,21 +9,8 @@ Replace `<project-name>` and `<project-path>` with the actual values.
 
 ```json
 {
-  "env": {},
-  "notes": {
-    "project": "<project-name>",
-    "project_path": "<project-path>",
-    "tech_stack": {
-      "language": "TODO: enter your language (e.g. TypeScript, Python)",
-      "framework": "TODO: enter your framework (e.g. Next.js, FastAPI)",
-      "database": "TODO: enter your database (e.g. PostgreSQL, SQLite)",
-      "infra": "TODO: enter your infra (e.g. Vercel, AWS)"
-    },
-    "preferences": {
-      "language": "en",
-      "date_format": "YYYY-MM-DD",
-      "note_style": "zettelkasten"
-    }
+  "env": {
+    "TODO_KEY": "TODO_VALUE"
   }
 }
 ```
