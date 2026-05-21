@@ -1,31 +1,30 @@
 # claude-obsidian-template
 
-Claude Code と Obsidian を連携させるためのスキル管理リポジトリです。
+A skill repository for integrating Claude Code with Obsidian.
 
-## スキル一覧
+## Skills
 
 ### `/obsidian`
 
-開発プロジェクト用の Obsidian vault 連携環境をセットアップします。
+Sets up an Obsidian vault linked to a development project.
 
-**できること:**
-- Obsidian vault の作成（デフォルト: `~/Documents/Obsidian/<project-name>`）
-- Claude Code 連携に必要な `.claude/` フォルダ構造のセットアップ
-- カスタムスラッシュコマンドの配置（`/daily`, `/inbox-review`, `/research`, `/mtg`）
-- PARA メソッドに基づくフォルダ構造の作成
+**What it does:**
+- Creates an Obsidian vault (default: `~/Documents/Obsidian/<project-name>`)
+- Sets up the `.claude/` folder structure required for Claude Code integration
+- Installs custom slash commands (`/daily`, `/inbox-review`, `/research`, `/mtg`)
+- Creates a PARA-method folder structure inside the vault
 
-**使い方:**
+**Usage:**
 ```
 /obsidian
 ```
 
-## インストール方法
+## Installation
 
 ```bash
-# スキルをインストール
 claude skills install obsidian/
 ```
 
-## 参考
+## Reference
 
-- [Claude Code + Obsidian 連携ガイド](https://note.com/antrefreepreneur/n/nabdcbc1aa26b)
+- [Claude Code + Obsidian Integration Guide](https://note.com/antrefreepreneur/n/nabdcbc1aa26b)

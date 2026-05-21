@@ -1,78 +1,77 @@
 ---
 name: obsidian
-description: 開発プロジェクト用のObsidian vault連携をセットアップするスキル。「/obsidian」と入力されたとき、または「obsidianと連携したい」「obsidian設定」「vault設定」「obsidianをセットアップして」などのリクエストが来たとき必ず使用すること。カレントディレクトリの開発プロジェクト向けにObsidian vaultを作成し、Claude Codeとの連携に必要な .claude/ フォルダ構造（settings.local.json, commands/, rules/）をセットアップします。プロジェクトの技術スタック・日次タスク管理・会議ログ・リサーチなどを一元管理できる環境を構築します。
+description: Skill for setting up an Obsidian vault linked to a development project. Use this skill when the user types "/obsidian", or requests anything like "integrate with Obsidian", "set up Obsidian", "configure vault", or "connect Obsidian to my project". Creates an Obsidian vault for the current project and sets up the .claude/ folder structure (settings.local.json, commands/, rules/) needed for Claude Code integration. Builds an environment for centrally managing tech stack info, daily task logs, meeting notes, and research.
 ---
 
-# Obsidian 連携セットアップ
+# Obsidian Integration Setup
 
-このスキルはカレントディレクトリの開発プロジェクトに対して、Obsidian vaultとClaude Codeの連携環境を構築します。
+This skill sets up a linked environment between the Obsidian vault and Claude Code for the development project in the current directory.
 
-## セットアップの流れ
+## Setup Flow
 
-### Step 1: プロジェクト情報の収集
+### Step 1: Collect Project Information
 
-まず以下の情報を確認・収集する：
+First, confirm and collect the following information:
 
-**プロジェクト名の決定**
+**Determine the project name**
 ```bash
-# カレントディレクトリがgit repositoryか確認
+# Check whether the current directory is a git repository
 git rev-parse --is-inside-work-tree 2>/dev/null
 ```
 
-- git repositoryの場合 → `basename $(git rev-parse --show-toplevel)` でプロジェクト名を取得
-- git repositoryでない場合 → ユーザーにプロジェクト名の入力を求める：
+- If it is a git repository → derive the project name with `basename $(git rev-parse --show-toplevel)`
+- If it is not a git repository → prompt the user for a project name:
   ```
-  カレントディレクトリはgitリポジトリではありません。
-  プロジェクト名を入力してください（例: my-project）:
+  The current directory is not a git repository.
+  Please enter a project name (e.g. my-project):
   ```
 
-**パスの確定**
-- プロジェクトパス: カレントディレクトリの絶対パス
-- Obsidian vaultパス（デフォルト）: `~/Documents/Obsidian/<project-name>`
-- ユーザーが引数でvaultパスを指定していれば、そちらを使用する
+**Confirm paths**
+- Project path: absolute path of the current directory
+- Obsidian vault path (default): `~/Documents/Obsidian/<project-name>`
+- If the user supplies a vault path as an argument, use that instead
 
-### Step 2: 設定内容の確認とユーザーへの提示
+### Step 2: Present Configuration and Ask for Confirmation
 
-以下の内容をユーザーに表示し、実行の可否を問う：
+Display the following to the user and ask whether to proceed:
 
 ```
-以下の設定でObsidian連携をセットアップします：
+The following Obsidian integration will be set up:
 
-  プロジェクトパス : <project-path>
-  Obsidian Vault  : <vault-path>
+  Project path  : <project-path>
+  Obsidian Vault: <vault-path>
 
-  作成されるVault構造：
+  Vault structure to be created:
   <vault-path>/
   ├── .claude/
-  │   ├── settings.local.json   # 技術スタック・個人設定
-  │   ├── commands/             # カスタムスラッシュコマンド
-  │   │   ├── daily.md          # 日次タスク整理
-  │   │   ├── inbox-review.md   # 未整理メモ分類
-  │   │   ├── research.md       # Vault内クロス検索
-  │   │   └── mtg.md            # 会議ログ構造化
+  │   ├── settings.local.json   # Tech stack & personal settings
+  │   ├── commands/             # Custom slash commands
+  │   │   ├── daily.md          # Daily task log
+  │   │   ├── inbox-review.md   # Inbox triage
+  │   │   ├── research.md       # Cross-vault search
+  │   │   └── mtg.md            # Meeting log structuring
   │   └── rules/
-  │       └── folder-structure.md  # フォルダ構造ルール
-  ├── 00_Inbox/                 # 未整理メモの一時置き場
-  ├── 01_Projects/              # プロジェクト別ノート
+  │       └── folder-structure.md  # Folder structure rules
+  ├── 00_Inbox/                 # Temporary drop zone for unprocessed notes
+  ├── 01_Projects/              # Per-project notes
   │   └── <project-name>/
-  ├── 02_Areas/                 # 継続的な関心領域
-  ├── 03_Resources/             # 参考資料・リサーチ
-  ├── 04_Archive/               # アーカイブ
+  ├── 02_Areas/                 # Ongoing areas of interest
+  ├── 03_Resources/             # Reference material & research
+  ├── 04_Archive/               # Archive
   └── README.md
 
-続けますか？ (yes/no):
+Proceed? (yes/no):
 ```
 
-- ユーザーが **no** と回答したら → セットアップを中止する
-- ユーザーが **yes** と回答したら → Step 3へ進む
-- ユーザーがカスタムvaultパスを指定したい場合は受け付け、上記表示を更新して再確認する
+- If the user answers **no** → abort setup
+- If the user answers **yes** → continue to Step 3
+- If the user wants a custom vault path, accept it, update the display above, and ask for confirmation again
 
-### Step 3: Vault ディレクトリ構造の作成
+### Step 3: Create Vault Directory Structure
 
-ユーザーが承認したら、以下を作成する：
+Once the user approves, create the following:
 
 ```bash
-# ベースディレクトリ群
 mkdir -p <vault-path>/.claude/commands
 mkdir -p <vault-path>/.claude/rules
 mkdir -p "<vault-path>/00_Inbox"
@@ -82,40 +81,38 @@ mkdir -p "<vault-path>/03_Resources"
 mkdir -p "<vault-path>/04_Archive"
 ```
 
-### Step 4: 設定ファイルの作成
+### Step 4: Create Configuration Files
 
-以下のファイルを作成する。詳細なテンプレート内容は `references/vault_structure.md` を参照すること。
+Create the files listed below. Refer to `references/vault_structure.md` for the exact template content of each file. Replace `<project-name>` and `<project-path>` with the actual values.
 
-**作成するファイル一覧:**
-1. `<vault-path>/.claude/settings.local.json` — 技術スタック・個人設定
-2. `<vault-path>/.claude/commands/daily.md` — /daily コマンド
-3. `<vault-path>/.claude/commands/inbox-review.md` — /inbox-review コマンド
-4. `<vault-path>/.claude/commands/research.md` — /research コマンド
-5. `<vault-path>/.claude/commands/mtg.md` — /mtg コマンド
-6. `<vault-path>/.claude/rules/folder-structure.md` — フォルダ構造ルール
-7. `<vault-path>/README.md` — Vault の説明
+**Files to create:**
+1. `<vault-path>/.claude/settings.local.json` — tech stack & personal settings
+2. `<vault-path>/.claude/commands/daily.md` — /daily command
+3. `<vault-path>/.claude/commands/inbox-review.md` — /inbox-review command
+4. `<vault-path>/.claude/commands/research.md` — /research command
+5. `<vault-path>/.claude/commands/mtg.md` — /mtg command
+6. `<vault-path>/.claude/rules/folder-structure.md` — folder structure rules
+7. `<vault-path>/README.md` — vault description
 
-各ファイルの具体的な内容は `references/vault_structure.md` に定義されている。プロジェクト名やパスは実際の値に置き換えること。
-
-### Step 5: 完了メッセージの表示
+### Step 5: Display Completion Message
 
 ```
-✓ Obsidian Vault のセットアップが完了しました！
+✓ Obsidian Vault setup complete!
 
-  Vault パス: <vault-path>
+  Vault path: <vault-path>
 
-次のステップ:
-1. Obsidian でこのフォルダを Vault として開く
-2. .claude/settings.local.json に技術スタックや個人情報を追記する
-3. Vault フォルダで claude を起動してコマンドを試す:
-   - /daily        → 今日のタスク整理
-   - /inbox-review → 未整理メモの分類提案
-   - /research     → ノートのクロス検索
-   - /mtg          → 会議ログの構造化
+Next steps:
+1. Open this folder as a Vault in Obsidian
+2. Fill in your tech stack and personal details in .claude/settings.local.json
+3. Launch claude in the vault folder and try the commands:
+   - /daily        → organize today's tasks and log
+   - /inbox-review → get triage suggestions for unprocessed notes
+   - /research     → cross-search notes in the vault
+   - /mtg          → structure a meeting log
 ```
 
-## エラーハンドリング
+## Error Handling
 
-- vaultパスが既に存在する場合: 上書き確認をユーザーに行う
-- ディレクトリ作成権限がない場合: エラーメッセージを表示して別のパスを提案する
-- プロジェクト名に特殊文字が含まれる場合: ファイルシステムに安全な名前に変換する（スペース→ハイフン など）
+- If the vault path already exists: ask the user whether to overwrite
+- If directory creation fails due to permissions: show an error and suggest an alternative path
+- If the project name contains special characters: convert to a filesystem-safe name (e.g. spaces → hyphens)
