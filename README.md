@@ -23,7 +23,7 @@ Sets up an Obsidian vault linked to a development project.
 
 ```bash
 git clone https://github.com/kkitai/claude-obsidian-template.git
-cp -r claude-obsidian-template/obsidian/skills/obsidian ~/.claude/commands/obsidian
+cp -r claude-obsidian-template/skills/obsidian ~/.claude/commands/obsidian
 ```
 
 `/obsidian` is now available globally in any directory.
