@@ -75,45 +75,88 @@ Proceed? (yes/no):
 - If the user answers **yes** → continue to Step 3
 - If the user wants a custom vault path, accept it, update the display above, and ask for confirmation again
 
-### Step 3: Create Vault Directory Structure
+### Step 3: Execute a Single Setup Script
 
-Once the user approves, create the following:
+After the user confirms in Step 2, read the file content templates from `references/vault_structure.md`, then generate and execute a single bash script like the one below. Replace `<vault-path>`, `<project-path>`, `<project-name>`, and `<today>` with the actual values before running.
 
 ```bash
-mkdir -p <vault-path>/.claude/commands
-mkdir -p <vault-path>/.claude/rules
-mkdir -p "<vault-path>/00_Inbox"
-mkdir -p "<vault-path>/01_Plan/daily"
-mkdir -p "<vault-path>/01_Plan/meetings"
-mkdir -p "<vault-path>/01_Plan/docs"
-mkdir -p "<vault-path>/02_Areas"
-mkdir -p "<vault-path>/03_Resources"
-mkdir -p "<vault-path>/04_Archive"
-mkdir -p "<vault-path>/Attachments"
-mkdir -p "<vault-path>/Templates"
+#!/usr/bin/env bash
+set -e
+
+VAULT="<vault-path>"
+PROJECT="<project-path>"
+PROJECT_NAME="<project-name>"
+TODAY="<today>"   # YYYY-MM-DD
+
+# --- Directories ---
+mkdir -p "$VAULT/.claude/commands"
+mkdir -p "$VAULT/.claude/rules"
+mkdir -p "$VAULT/00_Inbox"
+mkdir -p "$VAULT/01_Plan/daily"
+mkdir -p "$VAULT/01_Plan/meetings"
+mkdir -p "$VAULT/01_Plan/docs"
+mkdir -p "$VAULT/02_Areas"
+mkdir -p "$VAULT/03_Resources"
+mkdir -p "$VAULT/04_Archive"
+mkdir -p "$VAULT/Attachments"
+mkdir -p "$VAULT/Templates"
+
+# --- .claude/settings.local.json ---
+cat > "$VAULT/.claude/settings.local.json" << 'HEREDOC'
+<exact content from references/vault_structure.md — settings.local.json section>
+HEREDOC
+
+# --- .claude/commands/daily.md ---
+cat > "$VAULT/.claude/commands/daily.md" << 'HEREDOC'
+<exact content from references/vault_structure.md — daily.md section>
+HEREDOC
+
+# --- .claude/commands/inbox-review.md ---
+cat > "$VAULT/.claude/commands/inbox-review.md" << 'HEREDOC'
+<exact content from references/vault_structure.md — inbox-review.md section>
+HEREDOC
+
+# --- .claude/commands/research.md ---
+cat > "$VAULT/.claude/commands/research.md" << 'HEREDOC'
+<exact content from references/vault_structure.md — research.md section>
+HEREDOC
+
+# --- .claude/commands/mtg.md ---
+cat > "$VAULT/.claude/commands/mtg.md" << 'HEREDOC'
+<exact content from references/vault_structure.md — mtg.md section>
+HEREDOC
+
+# --- .claude/rules/folder-structure.md ---
+cat > "$VAULT/.claude/rules/folder-structure.md" << 'HEREDOC'
+<exact content from references/vault_structure.md — folder-structure.md section>
+HEREDOC
+
+# --- README.md ---
+cat > "$VAULT/README.md" << HEREDOC
+<exact content from references/vault_structure.md — README.md section,
+ with $PROJECT_NAME and $PROJECT substituted>
+HEREDOC
+
+# --- CLAUDE.md in the project directory ---
+CLAUDE_MD="$PROJECT/CLAUDE.md"
+OBSIDIAN_SECTION=$(cat << HEREDOC
+<exact content from references/vault_structure.md — CLAUDE.md section,
+ with $PROJECT_NAME, $PROJECT, $VAULT substituted>
+HEREDOC
+)
+
+if [ -f "$CLAUDE_MD" ]; then
+  printf '\n%s\n' "$OBSIDIAN_SECTION" >> "$CLAUDE_MD"
+else
+  printf '%s\n' "$OBSIDIAN_SECTION" > "$CLAUDE_MD"
+fi
+
+echo "done"
 ```
 
-### Step 4: Create Vault Configuration Files
+Fill in all `<exact content …>` placeholders with the real text from `references/vault_structure.md` before executing. The script must be complete and self-contained so the entire setup runs in one Bash tool call.
 
-Create the files listed below. Refer to `references/vault_structure.md` for the exact template content of each file. Replace `<project-name>` and `<project-path>` with the actual values.
-
-**Files to create in the vault:**
-1. `<vault-path>/.claude/settings.local.json` — tech stack & personal settings
-2. `<vault-path>/.claude/commands/daily.md` — /daily command
-3. `<vault-path>/.claude/commands/inbox-review.md` — /inbox-review command
-4. `<vault-path>/.claude/commands/research.md` — /research command
-5. `<vault-path>/.claude/commands/mtg.md` — /mtg command
-6. `<vault-path>/.claude/rules/folder-structure.md` — folder structure rules
-7. `<vault-path>/README.md` — vault description
-
-### Step 5: Create CLAUDE.md in the Development Project
-
-Create or append to `<project-path>/CLAUDE.md` to give Claude awareness of the linked Obsidian vault. Refer to `references/vault_structure.md` for the `CLAUDE.md` template.
-
-- If `CLAUDE.md` does not exist: create it from the template
-- If `CLAUDE.md` already exists: append the Obsidian integration section to the end of the file (do not overwrite existing content)
-
-### Step 6: Display Completion Message
+### Step 4: Display Completion Message
 
 ```
 ✓ Obsidian Vault setup complete!
