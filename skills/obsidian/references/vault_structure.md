@@ -244,11 +244,31 @@ This project is linked to an Obsidian vault at: <vault-path>
 - When the user asks about something that may have been researched before, search the vault first.
 - For architectural or design questions, look for existing notes in `<vault-path>/01_Plan/docs/`.
 
-### When to suggest updating the vault
-- **End of a work session**: suggest appending a summary to the daily log at `<vault-path>/01_Plan/daily/YYYY-MM-DD.md`.
-- **After a decision is made**: offer to save the decision and its rationale as a note in `<vault-path>/01_Plan/docs/`.
-- **After a meeting or discussion**: suggest running `/mtg` in the vault to create a structured meeting log.
-- **When new reference material is found**: suggest saving a summary to `<vault-path>/03_Resources/`.
+### When to write to the vault
+
+#### During a work session — write to 00_Inbox/
+Drop raw, unprocessed captures here at any point during work:
+- Quick ideas or observations that come up mid-task
+- Links, code snippets, or references worth keeping
+- Raw meeting notes before they are structured
+
+File name format: `YYYYMMDD_HHMM_<short-description>.md`
+
+Do **not** write directly to `01_Plan/daily/` during a session. Inbox is the capture layer.
+
+#### At the end of a work session
+- If anything noteworthy happened (decisions, blockers, insights), suggest dropping a brief session note in `<vault-path>/00_Inbox/`.
+- Remind the user to run `/daily` (in the vault folder) to process Inbox items into the structured daily log at `<vault-path>/01_Plan/daily/YYYY-MM-DD.md`.
+- Do **not** write to `01_Plan/daily/` directly — that is the job of `/daily`.
+
+#### After a decision is made
+Offer to save the decision and its rationale as a note in `<vault-path>/01_Plan/docs/`.
+
+#### After a meeting or discussion
+Suggest running `/mtg` in the vault to create a structured meeting log in `<vault-path>/01_Plan/meetings/`.
+
+#### When new reference material is found
+Suggest saving a summary to `<vault-path>/03_Resources/`.
 
 ### Vault commands (run claude in the vault folder)
 | Command | Description |
