@@ -44,7 +44,7 @@ The following Obsidian integration will be set up:
   Vault structure to be created:
   <vault-path>/
   ├── .claude/
-  │   ├── settings.local.json   # Tech stack & personal settings
+  │   ├── settings.local.json   # Vault path & locale settings
   │   ├── commands/             # Custom slash commands
   │   │   ├── daily.md          # Daily task log
   │   │   ├── inbox-review.md   # Inbox triage
@@ -166,7 +166,7 @@ Fill in all `<exact content …>` placeholders with the real text from `referenc
 
 Next steps:
 1. Open <vault-path> as a Vault in Obsidian
-2. Fill in your tech stack and personal details in .claude/settings.local.json
+2. Adjust TIMEZONE and LOCALE in .claude/settings.local.json if needed
 3. Launch claude in the vault folder and try the commands:
    - /daily        → organize today's tasks and log
    - /inbox-review → get triage suggestions for unprocessed notes
