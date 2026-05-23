@@ -225,7 +225,7 @@ Launch `claude` in this vault folder to use the following commands:
 | `/mtg` | Structure a meeting log |
 
 ## Configuration
-Edit `.claude/settings.local.json` to add your personal tech stack and preferences.
+Edit `.claude/settings.local.json` to adjust TIMEZONE, LOCALE, and folder path settings if needed.
 ```
 
 ---
