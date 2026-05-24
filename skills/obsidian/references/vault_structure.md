@@ -138,61 +138,6 @@ Save to: 01_Plan/meetings/YYYY-MM-DD_<meeting-name>.md
 
 ---
 
-## .claude/rules/folder-structure.md
-
-```markdown
-# Vault Folder Structure Rules
-
-This vault is managed with the following folder structure.
-Always follow these rules when creating or moving files.
-
-## Folder purposes
-
-### 00_Inbox/
-- Purpose: temporary drop zone for unprocessed notes
-- Rule: notes here are temporary — triage regularly with /inbox-review
-- File names: free-form (date prefix recommended: YYYYMMDD_title.md)
-
-### 01_Plan/
-- Purpose: plans, decisions, daily logs, and meeting notes for this project
-- Structure: files go directly under subfolders (daily/, meetings/, docs/)
-- Subfolder examples: daily/, meetings/, docs/
-
-### 02_Areas/
-- Purpose: ongoing areas of interest that are continuously maintained
-- Examples: tech learning, health, career, reading log
-- Rule: for ongoing themes, not time-boxed projects
-
-### 03_Resources/
-- Purpose: reference material, research, and summaries of external information
-- Examples: tech documentation notes, article summaries, book notes
-
-### 04_Archive/
-- Purpose: storage for completed or no-longer-needed notes
-- Rule: move here before deleting
-
-### Attachments/
-- Purpose: images, PDFs, and other media files linked in notes
-- Rule: when inserting an image into a note, store the file here
-
-### Templates/
-- Purpose: Obsidian note templates for consistent note structure
-- Examples: meeting template, daily log template, research note template
-- Rule: configure this folder in Obsidian Settings → Templates → Template folder location
-
-## File naming conventions
-- Spaces → hyphens (-)
-- Dates in YYYY-MM-DD format
-- Use specific, descriptive titles that make the content obvious at a glance
-
-## Linking
-- Use [[Note title]] to create internal links
-- Link related notes liberally
-- Use #tag-name format for tags
-```
-
----
-
 ## README.md
 
 ```markdown
@@ -205,13 +150,43 @@ This vault was created for knowledge management and Claude Code integration for 
 - Created: YYYY-MM-DD
 
 ## Folder structure
-- `00_Inbox/` — temporary drop zone for unprocessed notes
-- `01_Plan/` — plans, decisions, daily logs, meeting notes
-- `02_Areas/` — ongoing areas of interest
-- `03_Resources/` — reference material & research
-- `04_Archive/` — archive
-- `Attachments/` — images and media files
-- `Templates/` — Obsidian note templates
+
+### 00_Inbox/
+Temporary drop zone for unprocessed notes. Triage regularly with `/inbox-review`.
+- File names: free-form (date prefix recommended: `YYYYMMDD_title.md`)
+
+### 01_Plan/
+Plans, decisions, daily logs, and meeting notes for this project.
+- `daily/` — daily logs (managed by `/daily`; do not write here directly)
+- `meetings/` — meeting logs (managed by `/mtg`)
+- `docs/` — decisions, architecture docs, project notes
+
+### 02_Areas/
+Ongoing areas of interest that are continuously maintained (e.g. tech learning, career, reading log).
+For ongoing themes, not time-boxed projects.
+
+### 03_Resources/
+Reference material, research, and summaries of external information (e.g. tech docs, article summaries, book notes).
+
+### 04_Archive/
+Storage for completed or no-longer-needed notes. Move here before deleting.
+
+### Attachments/
+Images, PDFs, and other media files linked in notes. Store media files here when inserting into a note.
+
+### Templates/
+Obsidian note templates for consistent note structure.
+Configure in Obsidian Settings → Templates → Template folder location.
+
+## File naming conventions
+- Spaces → hyphens (`-`)
+- Dates in `YYYY-MM-DD` format
+- Use specific, descriptive titles that make the content obvious at a glance
+
+## Linking
+- Use `[[Note title]]` for internal links
+- Link related notes liberally
+- Use `#tag-name` for tags
 
 ## Claude Code commands
 
@@ -239,33 +214,31 @@ This file is created at `<project-path>/CLAUDE.md`. It gives Claude persistent a
 
 This project is linked to an Obsidian vault at: <vault-path>
 
+For the vault's folder structure, subfolders, file naming conventions, and linking rules, read `<vault-path>/README.md`.
+
 ### When to reference the vault
 - Before starting work on a feature or investigation, check `<vault-path>/01_Plan/` for relevant notes and prior decisions.
 - When the user asks about something that may have been researched before, search the vault first.
-- For architectural or design questions, look for existing notes in `<vault-path>/01_Plan/docs/`.
 
 ### When to write to the vault
 
-#### During a work session — write to 00_Inbox/
-Drop raw, unprocessed captures here at any point during work:
+#### During a work session
+Capture raw, unprocessed notes to `<vault-path>/00_Inbox/` at any point during work:
 - Quick ideas or observations that come up mid-task
 - Links, code snippets, or references worth keeping
 - Raw meeting notes before they are structured
 
 File name format: `YYYYMMDD_HHMM_<short-description>.md`
 
-Do **not** write directly to `01_Plan/daily/` during a session. Inbox is the capture layer.
-
 #### At the end of a work session
 - If anything noteworthy happened (decisions, blockers, insights), suggest dropping a brief session note in `<vault-path>/00_Inbox/`.
-- Remind the user to run `/daily` (in the vault folder) to process Inbox items into the structured daily log at `<vault-path>/01_Plan/daily/YYYY-MM-DD.md`.
-- Do **not** write to `01_Plan/daily/` directly — that is the job of `/daily`.
+- Remind the user to run `/daily` in the vault folder to process Inbox items into the daily log.
 
 #### After a decision is made
 Offer to save the decision and its rationale as a note in `<vault-path>/01_Plan/docs/`.
 
 #### After a meeting or discussion
-Suggest running `/mtg` in the vault to create a structured meeting log in `<vault-path>/01_Plan/meetings/`.
+Suggest running `/mtg` in the vault folder to create a structured meeting log.
 
 #### When new reference material is found
 Suggest saving a summary to `<vault-path>/03_Resources/`.
