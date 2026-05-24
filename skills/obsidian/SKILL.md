@@ -1,6 +1,6 @@
 ---
 name: obsidian
-description: Skill for setting up an Obsidian vault linked to a development project. Use this skill when the user types "/obsidian", or requests anything like "integrate with Obsidian", "set up Obsidian", "configure vault", or "connect Obsidian to my project". Creates an Obsidian vault for the current project and sets up the .claude/ folder structure (settings.local.json, commands/, rules/) needed for Claude Code integration. Builds an environment for centrally managing tech stack info, daily task logs, meeting notes, and research.
+description: Skill for setting up an Obsidian vault linked to a development project. Use this skill when the user types "/obsidian", or requests anything like "integrate with Obsidian", "set up Obsidian", "configure vault", or "connect Obsidian to my project". Creates an Obsidian vault for the current project and sets up the .claude/ folder structure (settings.local.json, commands/) needed for Claude Code integration. Builds an environment for centrally managing tech stack info, daily task logs, meeting notes, and research.
 ---
 
 # Obsidian Integration Setup
@@ -45,13 +45,11 @@ The following Obsidian integration will be set up:
   <vault-path>/
   ├── .claude/
   │   ├── settings.local.json   # Tech stack & personal settings
-  │   ├── commands/             # Custom slash commands
-  │   │   ├── daily.md          # Daily task log
-  │   │   ├── inbox-review.md   # Inbox triage
-  │   │   ├── research.md       # Cross-vault search
-  │   │   └── mtg.md            # Meeting log structuring
-  │   └── rules/
-  │       └── folder-structure.md  # Folder structure rules
+  │   └── commands/             # Custom slash commands
+  │       ├── daily.md          # Daily task log
+  │       ├── inbox-review.md   # Inbox triage
+  │       ├── research.md       # Cross-vault search
+  │       └── mtg.md            # Meeting log structuring
   ├── 00_Inbox/                 # Temporary drop zone for unprocessed notes
   ├── 01_Plan/                  # Plans, decisions, daily logs, meeting notes
   │   ├── daily/
@@ -90,7 +88,6 @@ TODAY="<today>"   # YYYY-MM-DD
 
 # --- Directories ---
 mkdir -p "$VAULT/.claude/commands"
-mkdir -p "$VAULT/.claude/rules"
 mkdir -p "$VAULT/00_Inbox"
 mkdir -p "$VAULT/01_Plan/daily"
 mkdir -p "$VAULT/01_Plan/meetings"
@@ -124,11 +121,6 @@ HEREDOC
 # --- .claude/commands/mtg.md ---
 cat > "$VAULT/.claude/commands/mtg.md" << 'HEREDOC'
 <exact content from references/vault_structure.md — mtg.md section>
-HEREDOC
-
-# --- .claude/rules/folder-structure.md ---
-cat > "$VAULT/.claude/rules/folder-structure.md" << 'HEREDOC'
-<exact content from references/vault_structure.md — folder-structure.md section>
 HEREDOC
 
 # --- README.md ---
